@@ -116,8 +116,9 @@ fn main() -> tract_core::anyhow::Result<()> {
         .arg(arg!(--"optimize-step" [STEP] "Stop optimizing process after application of patch number N"))
         .arg(arg!(--"extract-decluttered-sub" [SUB] "Zoom on a subgraph after decluttering by parent node name"))
 
-        .arg(arg!(--"half-floats" "Convert the decluttered network from f32 to f16"))
+        .arg(arg!(--"transform-half" "Convert the decluttered network from f32 to f16 (💀 experimental)"))
         .arg(arg!(--"allow-float-casts" "Allow casting between f16, f32 and f64 around model"))
+        .arg(arg!(--"transform-quant" "Convert the decluttered network from f32 to 8bit-quant (💀 experimental, for speed benches only)"))
 
         .arg(arg!(--"nnef-cycle" "Perform NNEF dump and reload before optimizing"))
 

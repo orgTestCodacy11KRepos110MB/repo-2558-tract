@@ -645,9 +645,14 @@ impl Parameters {
                 stage!("pulse-declutter", typed_model -> typed_model, |m:TypedModel| Ok(m.into_decluttered()?));
             }
         }
-        if matches.is_present("half-floats") {
-            stage!("half-float", typed_model -> typed_model, |m:TypedModel| {
+        if matches.is_present("transform-half") {
+            stage!("transform-half", typed_model -> typed_model, |m:TypedModel| {
                 crate::transform::half::HalfTranslator.translate_model(&m)
+            });
+        }
+        if matches.is_present("transform-quant") {
+            stage!("transform-quant", typed_model -> typed_model, |m:TypedModel| {
+                crate::transform::quant::QuantTranslator.translate_model(&m)
             });
         }
         if nnef_cycle {
