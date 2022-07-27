@@ -1,4 +1,3 @@
-use tract_core::internal::translator::Translate;
 use tract_core::internal::*;
 use tract_core::ops::binary::UnaryOp;
 use tract_core::ops::cnn::ConvUnary;

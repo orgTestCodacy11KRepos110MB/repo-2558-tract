@@ -154,7 +154,6 @@ impl TypedModel {
     }
 
     pub fn concretize_dims(&self, values: &SymbolValues) -> TractResult<TypedModel> {
-        use crate::model::translator::Translate;
         impl Translate<TypedFact, Box<dyn TypedOp>, TypedFact, Box<dyn TypedOp>> for SymbolValues {
             fn translate_node(
                 &self,

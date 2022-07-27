@@ -89,8 +89,6 @@ impl InferenceModelExt for InferenceModel {
 
     /// Attempt full analyse and conversion to TypedModel.
     fn into_typed(mut self) -> TractResult<TypedModel> {
-        use tract_core::internal::translator::Translate;
-
         self.analyse(false)?;
         let m = self.incorporate()?;
 

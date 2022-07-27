@@ -105,6 +105,7 @@ pub mod internal {
     pub use crate::ops::{
         AttrOrInput, AxisInfo, Cost, EvalOp, Invariants, Op, OpState, Validation,
     };
+    pub use crate::model::translator::Translate;
     pub use crate::plan::SessionState;
     pub use crate::prelude::*;
     pub use anyhow::{anyhow, bail, format_err, Context as TractErrorContext};
