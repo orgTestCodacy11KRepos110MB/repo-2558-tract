@@ -1,10 +1,12 @@
+use tract_core::internal::translator::Translate;
 use tract_core::internal::*;
 use tract_core::ops::binary::UnaryOp;
 use tract_core::ops::cnn::ConvUnary;
 use tract_core::ops::matmul::MatMulUnary;
 use tract_core::ops::scan::{InputMapping, Scan, StateInitializer};
 use tract_core::ops::source::TypedSource;
-use tract_core::internal::translator::Translate;
+#[cfg(feature = "pulse")]
+use tract_pulse_opl::ops::Delay;
 
 #[derive(Debug)]
 pub struct HalfTranslator;
@@ -17,7 +19,7 @@ impl Translate<TypedFact, Box<dyn TypedOp>, TypedFact, Box<dyn TypedOp>> for Hal
         target: &mut Graph<TypedFact, Box<dyn TypedOp>>,
         mapping: &HashMap<OutletId, OutletId>,
     ) -> TractResult<TVec<OutletId>> {
-        let new_op = if let Some(source) = node.op_as::<TypedSource>() {
+        let mut new_op = if let Some(source) = node.op_as::<TypedSource>() {
             Box::new(TypedSource::new(fact_f32_to_f16(&source.fact)))
         } else if let Some(op) = node.op_as::<ConvUnary>() {
             Box::new(ConvUnary {
@@ -43,6 +45,19 @@ impl Translate<TypedFact, Box<dyn TypedOp>, TypedFact, Box<dyn TypedOp>> for Hal
         } else {
             node.op.clone()
         };
+        #[cfg(feature = "pulse")]
+        {
+            if let Some(op) = node.op_as::<Delay>() {
+                new_op = Box::new(Delay {
+                    datum_type: if op.datum_type == f32::datum_type() {
+                        f16::datum_type()
+                    } else {
+                        op.datum_type
+                    },
+                    ..op.clone()
+                })
+            }
+        }
         target.wire_node(
             &node.name,
             new_op,
