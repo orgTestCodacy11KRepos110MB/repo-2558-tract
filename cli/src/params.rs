@@ -648,7 +648,7 @@ impl Parameters {
         if matches.is_present("half-floats") {
             stage!("half-float", typed_model -> typed_model, |m:TypedModel| {
                 use tract_core::model::translator::Translate;
-                tract_core::half::HalfTranslator.translate_model(&m)
+                crate::half::HalfTranslator.translate_model(&m)
             });
         }
         if nnef_cycle {

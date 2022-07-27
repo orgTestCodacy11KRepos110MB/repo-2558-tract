@@ -25,6 +25,7 @@ mod draw;
 mod dump;
 mod errors {}
 mod export;
+mod half;
 mod model;
 mod params;
 mod profile;

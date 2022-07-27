@@ -1,10 +1,10 @@
-use crate::internal::translator::Translate;
-use crate::internal::*;
-use crate::ops::binary::UnaryOp;
-use crate::ops::cnn::ConvUnary;
-use crate::ops::matmul::MatMulUnary;
-use crate::ops::scan::{InputMapping, Scan, StateInitializer};
-use crate::ops::source::TypedSource;
+use tract_core::internal::*;
+use tract_core::ops::binary::UnaryOp;
+use tract_core::ops::cnn::ConvUnary;
+use tract_core::ops::matmul::MatMulUnary;
+use tract_core::ops::scan::{InputMapping, Scan, StateInitializer};
+use tract_core::ops::source::TypedSource;
+use tract_core::internal::translator::Translate;
 
 #[derive(Debug)]
 pub struct HalfTranslator;
