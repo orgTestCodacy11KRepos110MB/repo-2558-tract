@@ -25,7 +25,6 @@ mod draw;
 mod dump;
 mod errors {}
 mod export;
-mod transform;
 mod model;
 mod params;
 mod profile;
@@ -34,6 +33,7 @@ mod run;
 mod stream_check;
 mod tensor;
 mod terminal;
+mod transform;
 mod utils;
 
 use params::*;
@@ -116,9 +116,9 @@ fn main() -> tract_core::anyhow::Result<()> {
         .arg(arg!(--"optimize-step" [STEP] "Stop optimizing process after application of patch number N"))
         .arg(arg!(--"extract-decluttered-sub" [SUB] "Zoom on a subgraph after decluttering by parent node name"))
 
-        .arg(arg!(--"transform-half" "Convert the decluttered network from f32 to f16 (💀 experimental)"))
+        .arg(arg!(--"transform-half" "Convert the decluttered network from f32 to f16 (💀 experimental)").hide(true))
         .arg(arg!(--"allow-float-casts" "Allow casting between f16, f32 and f64 around model"))
-        .arg(arg!(--"transform-quant" "Convert the decluttered network from f32 to 8bit-quant (💀 experimental, for speed benches only)"))
+        .arg(arg!(--"transform-quant" "Convert the decluttered network from f32 to 8bit-quant (💀 experimental, for speed benches only)").hide(true))
 
         .arg(arg!(--"nnef-cycle" "Perform NNEF dump and reload before optimizing"))
 
@@ -238,8 +238,7 @@ fn main() -> tract_core::anyhow::Result<()> {
         ::std::env::set_var("TRACT_LOG", level);
     }
 
-    let env = env_logger::Env::default()
-        .filter_or("TRACT_LOG", "warn");
+    let env = env_logger::Env::default().filter_or("TRACT_LOG", "warn");
 
     env_logger::Builder::from_env(env).format_timestamp_nanos().init();
     info_usage("init", probe.as_ref());
