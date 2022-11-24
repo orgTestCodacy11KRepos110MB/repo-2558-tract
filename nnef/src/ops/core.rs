@@ -5,6 +5,7 @@ mod broadcast;
 mod cast;
 mod complex;
 mod downsample;
+mod einsum;
 mod fft;
 mod gather;
 mod matmul;
@@ -34,7 +35,11 @@ pub fn register(registry: &mut Registry) {
     cast::register(registry);
     complex::register(registry);
     downsample::register(registry);
+<<<<<<< HEAD
     fft::register(registry);
+=======
+    einsum::register(registry);
+>>>>>>> 21fadb83 (move einsum to core)
     gather::register(registry);
     matmul::register(registry);
     one_hot::register(registry);

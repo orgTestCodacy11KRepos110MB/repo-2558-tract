@@ -1,12 +1,12 @@
 #![allow(clippy::len_zero)]
 #[macro_use]
 extern crate educe;
-#[macro_use]
 extern crate log;
 
 use tract_nnef::internal::*;
 
 pub mod einsum;
+pub mod erf;
 pub mod is_inf;
 pub mod is_nan;
 pub mod lrn;
@@ -52,11 +52,5 @@ fn onnx_opl_registry() -> Registry {
             &[("output", TypeName::Scalar.tensor())],
             lrn::load
     );
-    registry.register_dumper(TypeId::of::<einsum::EinSum>(), einsum::dump);
-    registry.register_primitive(
-        "tract_onnx_einsum", 
-        &einsum::parameters(),
-        &[("output", TypeName::Scalar.tensor())],
-        einsum::load);
     registry
 }
