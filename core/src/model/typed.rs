@@ -140,6 +140,7 @@ impl TypedModel {
                 })?
             }
         }
+        self.invariants()?;
         Ok(())
     }
 
