@@ -5,8 +5,6 @@ extern crate log;
 
 use tract_nnef::internal::*;
 
-pub mod einsum;
-pub mod erf;
 pub mod is_inf;
 pub mod is_nan;
 pub mod lrn;

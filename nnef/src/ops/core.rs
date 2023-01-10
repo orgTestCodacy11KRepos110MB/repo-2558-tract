@@ -35,11 +35,8 @@ pub fn register(registry: &mut Registry) {
     cast::register(registry);
     complex::register(registry);
     downsample::register(registry);
-<<<<<<< HEAD
-    fft::register(registry);
-=======
     einsum::register(registry);
->>>>>>> 21fadb83 (move einsum to core)
+    fft::register(registry);
     gather::register(registry);
     matmul::register(registry);
     one_hot::register(registry);
